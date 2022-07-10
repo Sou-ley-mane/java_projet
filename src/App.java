@@ -1,41 +1,83 @@
 import java.util.Scanner;
 
-import Service.IService;
-import Service.ServiceT;
-import models.Pavillon;
+import Models.Pavillon;
+import Service.Service;
 
 public class App {
-    private static int id = 0;
 
     public static void main(String[] args) throws Exception {
-        IService service = new ServiceT();
-        int reponse = service.question();
-        while (reponse == 1) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Veuillez saisir un num :");
-            String str = sc.nextLine();
-            System.out.println("Veuillez saisir un nombre :");
-            int nbr = sc.nextInt();
-            Pavillon p = new Pavillon(++id, str, nbr);
-            service.AddPavillon(p);
-            service.listerPavillon();
-            id++;
-            System.out.println("voulez vous toujour continuer");
-            System.out.println("1=>Oui");
-            System.out.println("2=>Non");
-            int repon = sc.nextInt();
+        Service service = new Service();
+        String options[] = { "GESTION DES PAVILLONS", "GESTION DES CHAMBRES", "GESTION DES ETUDIANTS" };
+        int reponse = service.menu("GESTION DES LOGEMENTS", options);
+        if (reponse == 1) {
+            String pav[] = { "Ajouter", "Supprimer", "lister" };
+            int repon = service.menu("GESTION DES PAVILLONS", pav);
+            switch (repon) {
+                case 1:
+                    Scanner sc = new Scanner(System.in);
+                    System.out.println("Donner le numéro du pavillon");
+                    String num = sc.nextLine();
+                    System.out.println("Donner le numéro du pavillon");
+                    int nombre = sc.nextInt();
+                    Pavillon p = new Pavillon(1, nombre, num);
+                    service.AddPavillon(p);
+                    service.listerPavillon();
+                    // System.out.println(p);
 
-            if (repon == 1) {
-                continue;
-            } else if (repon == 2) {
-                System.out.println("Terminer");
-                break;
-            } else {
-                System.out.println("Option non disponible");
-                break;
+                    break;
+
+                case 2:
+                    System.out.println("Supprimer pavillon");
+                    break;
+
+                case 3:
+                    System.out.println("Lister pavillon");
+                    break;
+
+                default:
+                    break;
             }
+        } else if (reponse == 2) {
+            String pav[] = { "Ajouter", "Supprimer", "lister" };
+            int repon = service.menu("GESTION DES  CHAMBRES", pav);
+            switch (repon) {
+                case 1:
+                    System.out.println("Ajout pavillon");
+                    break;
 
+                case 2:
+                    System.out.println("Supprimer pavillon");
+                    break;
+
+                case 3:
+                    System.out.println("Lister pavillon");
+                    break;
+
+                default:
+                    break;
+
+            }
+        } else if (reponse == 3) {
+            String pav[] = { "Ajouter", "Supprimer", "lister" };
+            int repon = service.menu("GESTION DES  ETUDIANTS", pav);
+            switch (repon) {
+                case 1:
+                    System.out.println("Ajout pavillon");
+                    break;
+
+                case 2:
+                    System.out.println("Supprimer pavillon");
+                    break;
+
+                case 3:
+                    System.out.println("Lister pavillon");
+                    break;
+
+                default:
+                    break;
+
+            }
         }
-
     }
+
 }
